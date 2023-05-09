@@ -1,4 +1,5 @@
 from django.db import models  # noqa F401
+from django.utils.timezone import localtime
 import datetime
 
 
@@ -15,8 +16,8 @@ class PokemonEntity(models.Model):
     pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE)
     Lat = models.FloatField(blank=True)
     Lon = models.FloatField(blank=True)
-    appeared_at = models.DateTimeField(default=datetime.datetime.now(), blank=True)
-    disappeared_at = models.DateTimeField(default=datetime.datetime.now() + datetime.timedelta(minutes=10), blank=True)
+    appeared_at = models.DateTimeField(default=localtime(), blank=True)
+    disappeared_at = models.DateTimeField(default=localtime() + datetime.timedelta(minutes=600), blank=True)
     Level = models.IntegerField(null=True, blank=True)
     Health = models.IntegerField(null=True, blank=True)
     Strength = models.IntegerField(null=True, blank=True)
