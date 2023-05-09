@@ -22,3 +22,6 @@ class PokemonEntity(models.Model):
     Strength = models.IntegerField(null=True, blank=True)
     Defence = models.IntegerField(null=True, blank=True)
     Stamina = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return f'Объект {self.pokemon.title}'
