@@ -51,7 +51,6 @@ def show_all_pokemons(request):
             'img_url': request.build_absolute_uri(f'../media/{entity.pokemon.image}'),
             'title_ru': entity.pokemon.title,
         })
-
     return render(request, 'mainpage.html', context={
         'map': folium_map._repr_html_(),
         'pokemons': pokemons_on_page,
@@ -60,30 +59,38 @@ def show_all_pokemons(request):
 
 def show_pokemon(request, pokemon_id):
     timezone.activate(timezone='Europe/Moscow')
-    pokemons_entities = PokemonEntity.objects.filter(
+    pokemon_entities = PokemonEntity.objects.filter(
         appeared_at__lt=timezone.localtime(),
         disappeared_at__gt=timezone.localtime()
     )
-    find_pokemons_entities = []
+    find_pokemon_entities = []
     pokemon_types = {
         '1': 'Бульбазавр',
         '2': 'Ивизавр',
         '3': 'Венузавр'
     }
     if pokemon_id in pokemon_types.keys():
-        for entity in pokemons_entities:
+        for entity in pokemon_entities:
             if entity.pokemon.title == pokemon_types[pokemon_id]:
-                find_pokemons_entities.append(entity)
+                find_pokemon_entities.append(entity)
     else:
         return HttpResponseNotFound('<h1>Такой покемон не найден</h1>')
 
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
-    for entity in find_pokemons_entities:
+    for entity in find_pokemon_entities:
         add_pokemon(
             folium_map, entity.Lat,
             entity.Lon,
             request.build_absolute_uri(f'../../media/{entity.pokemon.image}')
         )
+    pokemon = {
+        'pokemon_id': pokemon_id,
+        'img_url': request.build_absolute_uri(f'../../media/{find_pokemon_entities[0].pokemon.image}'),
+        'title_ru': find_pokemon_entities[0].pokemon.title,
+        'title_en': find_pokemon_entities[0].pokemon.title_en,
+        'title_jp': find_pokemon_entities[0].pokemon.title_jp,
+        'description': find_pokemon_entities[0].pokemon.description
+    }
     return render(request, 'pokemon.html', context={
-        'map': folium_map._repr_html_()#, 'pokemon': pokemon
+        'map': folium_map._repr_html_(), 'pokemon': pokemon
     })
