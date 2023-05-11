@@ -9,6 +9,7 @@ class Pokemon(models.Model):
         primary_key=True
     )
     title = models.CharField(
+        blank=False,
         max_length=200,
         verbose_name='Название на русском'
     )
@@ -24,7 +25,7 @@ class Pokemon(models.Model):
     )
     image = models.ImageField(
         upload_to='images',
-        blank=True,
+        blank=False,
         verbose_name='Изображение'
     )
     description = models.TextField(
@@ -48,15 +49,18 @@ class Pokemon(models.Model):
 class PokemonEntity(models.Model):
     pokemon = models.ForeignKey(
         Pokemon,
+        blank=False,
         on_delete=models.CASCADE,
         verbose_name='Покемон'
     )
     Lat = models.FloatField(
         blank=True,
+        null=True,
         verbose_name='Широта'
     )
     Lon = models.FloatField(
         blank=True,
+        null=True,
         verbose_name='Долгота'
     )
     appeared_at = models.DateTimeField(
