@@ -83,13 +83,19 @@ def show_pokemon(request, pokemon_id):
             entity.Lon,
             request.build_absolute_uri(f'../../media/{entity.pokemon.image}')
         )
+    print(find_pokemon_entities[0].pokemon.previous_evolution)
     pokemon = {
         'pokemon_id': pokemon_id,
         'img_url': request.build_absolute_uri(f'../../media/{find_pokemon_entities[0].pokemon.image}'),
         'title_ru': find_pokemon_entities[0].pokemon.title,
         'title_en': find_pokemon_entities[0].pokemon.title_en,
         'title_jp': find_pokemon_entities[0].pokemon.title_jp,
-        'description': find_pokemon_entities[0].pokemon.description
+        'description': find_pokemon_entities[0].pokemon.description,
+        'previous_evolution': {
+            'title_ru': find_pokemon_entities[0].pokemon.previous_evolution.title,
+            'pokemon_id': find_pokemon_entities[0].pokemon.previous_evolution.id,
+            'img_url': request.build_absolute_uri(f'../../media/{find_pokemon_entities[0].pokemon.previous_evolution.image}')
+        }
     }
     return render(request, 'pokemon.html', context={
         'map': folium_map._repr_html_(), 'pokemon': pokemon
