@@ -1,6 +1,4 @@
 from django.db import models  # noqa F401
-from django.utils.timezone import localtime
-import datetime
 
 
 class Pokemon(models.Model):
@@ -57,13 +55,15 @@ class PokemonEntity(models.Model):
         verbose_name='Долгота'
     )
     appeared_at = models.DateTimeField(
-        default=localtime(),
+        default=None,
         blank=True,
+        null=True,
         verbose_name='Когда появился'
     )
     disappeared_at = models.DateTimeField(
-        default=localtime() + datetime.timedelta(minutes=600),
+        default=None,
         blank=True,
+        null=True,
         verbose_name='Когда исчезнет'
     )
     Level = models.IntegerField(
