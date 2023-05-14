@@ -5,7 +5,6 @@ import datetime
 
 class Pokemon(models.Model):
     title = models.CharField(
-        blank=False,
         max_length=200,
         verbose_name='Название на русском'
     )
@@ -21,7 +20,6 @@ class Pokemon(models.Model):
     )
     image = models.ImageField(
         upload_to='images',
-        blank=False,
         verbose_name='Изображение'
     )
     description = models.TextField(
@@ -45,7 +43,6 @@ class Pokemon(models.Model):
 class PokemonEntity(models.Model):
     pokemon = models.ForeignKey(
         Pokemon,
-        blank=False,
         on_delete=models.CASCADE,
         verbose_name='Покемон'
     )
