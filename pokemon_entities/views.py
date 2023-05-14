@@ -65,10 +65,11 @@ def show_all_pokemons(request):
 def show_pokemon(request, pokemon_id):
     timezone.activate(timezone='Europe/Moscow')
     pokemon_type = get_object_or_404(Pokemon, id=int(pokemon_id))
+    time_now = timezone.localtime()
     pokemon_entities = PokemonEntity.objects.filter(
         pokemon=pokemon_type,
-        appeared_at__lt=timezone.localtime(),
-        disappeared_at__gt=timezone.localtime()
+        appeared_at__lt=time_now,
+        disappeared_at__gt=time_now
     )
 
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
