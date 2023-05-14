@@ -44,12 +44,12 @@ class PokemonEntity(models.Model):
         related_name='object_pokemon',
         verbose_name='Покемон'
     )
-    Lat = models.FloatField(
+    lat = models.FloatField(
         blank=True,
         null=True,
         verbose_name='Широта'
     )
-    Lon = models.FloatField(
+    lon = models.FloatField(
         blank=True,
         null=True,
         verbose_name='Долгота'
@@ -66,27 +66,27 @@ class PokemonEntity(models.Model):
         null=True,
         verbose_name='Когда исчезнет'
     )
-    Level = models.IntegerField(
+    level = models.IntegerField(
         null=True,
         blank=True,
         verbose_name='Уровень'
     )
-    Health = models.IntegerField(
+    health = models.IntegerField(
         null=True,
         blank=True,
         verbose_name='Здоровье'
     )
-    Strength = models.IntegerField(
+    strength = models.IntegerField(
         null=True,
         blank=True,
         verbose_name='Атака'
     )
-    Defence = models.IntegerField(
+    defence = models.IntegerField(
         null=True,
         blank=True,
         verbose_name='Защита'
     )
-    Stamina = models.IntegerField(
+    stamina = models.IntegerField(
         null=True,
         blank=True,
         verbose_name='Выносливость'
