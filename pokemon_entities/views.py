@@ -15,6 +15,13 @@ DEFAULT_IMAGE_URL = (
 )
 
 
+def get_pokemon_image(request, pokemon_entity):
+    if pokemon_entity.pokemon.image:
+        return request.build_absolute_uri(pokemon_entity.pokemon.image.url)
+    else:
+        return DEFAULT_IMAGE_URL
+
+
 def add_pokemon(folium_map, lat, lon, image_url=DEFAULT_IMAGE_URL):
     icon = folium.features.CustomIcon(
         image_url,
@@ -45,11 +52,9 @@ def show_all_pokemons(request):
 
     pokemons_on_page = []
     for entity in pokemons_entities:
-        if not entity.pokemon.image:
-            pass
         pokemons_on_page.append({
             'pokemon_id': entity.pokemon.id,
-            'img_url': request.build_absolute_uri(entity.pokemon.image.url),
+            'img_url': get_pokemon_image(request, entity),
             'title_ru': entity.pokemon.title,
         })
     return render(request, 'mainpage.html', context={
