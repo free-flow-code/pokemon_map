@@ -23,7 +23,6 @@ class Pokemon(models.Model):
         verbose_name='Изображение'
     )
     description = models.TextField(
-        default='',
         blank=True,
         verbose_name='Описание'
     )
