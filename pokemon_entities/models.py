@@ -4,10 +4,6 @@ import datetime
 
 
 class Pokemon(models.Model):
-    id = models.AutoField(
-        auto_created=True,
-        primary_key=True
-    )
     title = models.CharField(
         blank=False,
         max_length=200,
