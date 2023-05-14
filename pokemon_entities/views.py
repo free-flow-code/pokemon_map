@@ -2,7 +2,7 @@ import folium
 import json
 
 from django.http import HttpResponseNotFound, HttpRequest
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from .models import PokemonEntity, Pokemon
 
@@ -60,7 +60,7 @@ def show_all_pokemons(request):
 
 def show_pokemon(request, pokemon_id):
     timezone.activate(timezone='Europe/Moscow')
-    pokemon_type = Pokemon.objects.get(id=int(pokemon_id))
+    pokemon_type = get_object_or_404(Pokemon, id=int(pokemon_id))
     pokemon_entities = PokemonEntity.objects.filter(
         pokemon=pokemon_type,
         appeared_at__lt=timezone.localtime(),
